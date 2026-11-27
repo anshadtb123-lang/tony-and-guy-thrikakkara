@@ -1,0 +1,23 @@
+{
+    frankenphp
+    auto_https off
+    admin off
+}
+:{$PORT:80} {
+    root * /app/web/public
+    encode gzip
+    route {
+        @home path /tony-and-guy-thrikkakara /tony-and-guy-thrikkakara/
+        handle @home {
+            rewrite * /index.php
+            php_server
+        }
+        redir /tony-and-guy-thrikkakara/admin /tony-and-guy-thrikkakara/admin/ 308
+        handle_path /tony-and-guy-thrikkakara/* {
+            @hidden path /.*
+            respond @hidden 404
+            php_server
+        }
+        respond 404
+    }
+}
